@@ -4,7 +4,6 @@
 extern crate libc;
 use libc::{c_double, c_int};
 
-#[link(name = "csphi")]
 extern "C" {
 
     fn icasadi_num_static_parameters() -> c_int;
