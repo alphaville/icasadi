@@ -4,6 +4,13 @@
 This is an interface to CasADi functions of the form `phi(u; p)`, where `u`
 is a decision variable and `p` a parameter.
 
+
+## Code generation in Python
+
+Coming very soon
+
+
+## Code generation in MATLAB
 Here is an example of such a function (MATLAB example)
 
 ```matlab
@@ -20,7 +27,7 @@ phi = (p'*p) * cos(sin(u))' * u;   % cost function phi(u; p)
 We may then create C code for this function and its Jacobian using
 
 ```matlab
-[cost, grad_cost] = casadi_generate_c_code(nu, np, u, p, phi, 'phi');
+[cost, grad_cost] = casadi_generate_c_code(u, p, phi);
 ```
 
 
@@ -31,14 +38,7 @@ This will create two functions:
    at `(u, p)`
 
 
-First we need to build the interface:
-
-```
-$ make
-```
-
-We may now use the Rust interface to consume that function. Here is an example:
-
+Here is an example of use:
 
 ```rust
 // File: main.rs
@@ -59,11 +59,22 @@ fn main() {
 }
 ```
 
-To compile and run `main.rs`, run:
+## Compiling, Running, Testing
+
+To build the project, run
 
 ```
-$ export RUSTFLAGS='-L ./lib/' 
+$ cargo build
+```
+
+To compile the main function (`main.rs`), run
+
+```
 $ cargo run
 ```
 
-Note: this interface is still work in progress!
+To run the unit tests, do
+
+```
+$ cargo test
+```
