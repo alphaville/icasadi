@@ -1,8 +1,9 @@
 set -euxo pipefail
 
 main() {
-    make build
-    make test
+    cargo build
+    cargo test
+    cargo run
 }
 
 main
