@@ -1,4 +1,5 @@
 # Rust Casadi Interface
+[![Build Status](https://travis-ci.org/alphaville/icasadi.svg?branch=master)](https://travis-ci.org/alphaville/icasadi)
 
 This is an interface to CasADi functions of the form `phi(u; p)`, where `u`
 is a decision variable and `p` a parameter.
