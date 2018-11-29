@@ -4,6 +4,7 @@
 
 #define CASADI_NU 10
 #define CASADI_NP 2
-#define CASADI_FUNCTION_NAME phi
+#define CASADI_COST_NAME phi
+#define CASADI_GRAD_NAME grad_phi
 
 #endif

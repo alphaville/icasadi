@@ -1,15 +1,23 @@
 #include "icasadi.h"
 
-int icasadi_fun(
+int icasadi_cost_(
         const double *u, 
         const double *casadi_static_params,
-        double* cost_value, 
-        double* cost_jacobian)
+        double* cost_value)
 {
     const double* casadi_arguments[2] = {u, casadi_static_params};
-    double *casadi_results[2] = {cost_value, cost_jacobian};
-    return CASADI_FUNCTION_NAME(casadi_arguments, casadi_results, 0, 0, 0);
+    return CASADI_COST_NAME(casadi_arguments, &cost_value, 0, 0, 0);
 }
+
+int icasadi_grad_(
+        const double *u, 
+        const double *casadi_static_params,
+        double* gradient)
+{
+    const double* casadi_arguments[2] = {u, casadi_static_params};
+    return CASADI_GRAD_NAME(casadi_arguments, &gradient, 0, 0, 0);
+}
+
 
 int icasadi_num_decision_variables(void){
     return CASADI_NU;

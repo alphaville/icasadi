@@ -1,7 +1,14 @@
 [package]
+authors = ["Pantelis Sopasakis"]
 name = "icasadi"
+categories = ["optimization", "automatic differentiation", "interface"]
+keywords = ["casadi", "optimization", "interface"]
+description = "Rust interface to CasADi functions"
+documentation = "https://docs.rs/icasadi"
+license = "MIT"
+readme = "README.md"
 version = "0.1.0"
-authors = ["Pantelis Sopasakis <p.sopasakis@gmail.com>"]
+
 
 [dependencies]
 libc = "0.2.0"

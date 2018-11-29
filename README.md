@@ -16,15 +16,18 @@ p = casadi.SX.sym('p', np);        % parameters
 phi = (p'*p) * cos(sin(u))' * u;   % cost function phi(u; p)
 ```
 
-We may then create C code for this function using
+We may then create C code for this function and its Jacobian using
 
 ```matlab
-phi_fun = casadi_generate_c_code(nu, np, u, p, phi, 'phi');
+[cost, grad_cost] = casadi_generate_c_code(nu, np, u, p, phi, 'phi');
 ```
 
-This will create a function that maps `(u, p)` to `(phi(u; p), J_u phi(u; p))`,
-where `phi(u; p)` is the value of function `phi` and `J_u phi(u; p)` is the 
-Jacobian matrix (with respect to `u`).
+
+This will create two functions:
+
+- `cost` : which maps `(u, p)` to `phi(u; p)`,
+- `grad_cost` : the Jacobian matrix of `phi` with respect to `u` evaluated 
+   at `(u, p)`
 
 
 First we need to build the interface:
@@ -43,17 +46,19 @@ extern crate icasadi;
 fn main() {
     let u = [1.0, 2.0, 3.0, -5.0, 1.0, 10.0, 14.0, 17.0, 3.0, 5.0];
     let p = [1.0, -1.0];
+
     let mut cost_value = 0.0;
     let mut jac = [0.0; 10];
     
-    icasadi::icasadi(&u, &p, &mut cost_value, &mut jac);
+    icasadi_cost(u, p, &phival);       // compute the cost
+    icasadi_grad(u, p, cost_jacobian); // compute the Jacobian of the cost
 
     println!("cost value = {}", cost_value);
     println!("jacobian   = {:#?}", jac);
 }
 ```
 
-To compile `main.rs`, run:
+To compile and run `main.rs`, run:
 
 ```
 $ export RUSTFLAGS='-L ./lib/' 
