@@ -1,9 +1,15 @@
 # Rust Casadi Interface
 [![Build Status](https://travis-ci.org/alphaville/icasadi.svg?branch=master)](https://travis-ci.org/alphaville/icasadi)
 
-This is an interface to CasADi functions of the form `phi(u; p)`, where `u`
-is a decision variable and `p` a parameter.
+This is an interface to CasADi functions of the form `phi(u; p)`, where `u` is a decision variable and `p` a parameter.
 
+- Using CasADi's MATLAB or Python interface, you may define a cost function
+- We provide helper functions which generate C code for the given function and its Jacobian
+- Then `icasadi` offers a convenient interface to the C code from Rust
+- This is a `no-std` library which can be used on embedded devices
+- And `icasadi` can be used in embedded numerical optimization modules written in Rust
+
+This library is available on [crates.io](https://crates.io/crates/icasadi) at https://crates.io/crates/icasadi
 
 ## Code generation in Python
 
